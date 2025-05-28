@@ -1,8 +1,8 @@
 # ConverseCore - an Apptainer based Slurm Module Builder
 
-This slurm module uses the [flask_ollama_web](https://github.com/stela2502/flask_ollama_web) Flase web server to make the users ollama models available as a Slurm module.
+This slurm module uses the [flask_ollama_web](https://github.com/stela2502/flask_ollama_web) Flask web server to make the users ollama models available as a Slurm module.
 
-It therefore builds an apptainer image where the users .ollama is mounted, not integrated.
+It builds an apptainer image where the users .ollama folder is mounted, not integrated.
 
 At the moemnt only the LLaMA 3 module is supported, but changing that should be very simple.
 This is a prove of concept and a testing environment. Would be cool if it would help you, too!
@@ -29,7 +29,7 @@ Once everything is working as it should (should be already the case) you can bui
 make build
 ```
 
-Afterwards yopu need to adjust the Makefile and define your deploy paths as fit for your environment.
+Afterwards you need to adjust the Makefile and define your deploy paths as fit for your environment.
 And finally you can build the Slurm module using 
 
 ```
@@ -38,7 +38,7 @@ make deploy
 
 # Usage
 
-Assuming you have installed a version 1.0 of your slurm module you can start the oolama powered server using
+Assuming you have installed a version 1.0 of your slurm module you can start the ollama powered server using
 
 ```
 ml ConverseCore/1.0
