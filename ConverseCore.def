@@ -1,0 +1,51 @@
+Bootstrap: docker
+From: nvidia/cuda:11.8.0-cudnn8-runtime-ubuntu22.04
+
+%environment
+    export OLLAMA_MODELS=/app/ollama/models
+    export OLLAMA_HOME=/app/ollama/
+    export PATH=/usr/local/bin:$PATH
+    export LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH
+    export FLASK_ENV=production
+    export PYTHONNOUSERSITE="true"
+    export PIP_BREAK_SYSTEM_PACKAGES=1
+
+%post
+    export PYTHONNOUSERSITE="true"
+    export PIP_BREAK_SYSTEM_PACKAGES=1
+   
+    # Update and install dependencies
+    apt-get update && apt-get install -y --no-install-recommends \
+        build-essential git python3 python3-pip \
+        curl ca-certificates libssl3 libcurl4 libprotobuf-dev pciutils
+
+    # Install Python packages for stable diffusion and server
+    #pip3 install --no-cache-dir flask requests torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu118
+    #pip3 install --no-cache-dir diffusers transformers accelerate scipy safetensors
+
+    # Add the Ollama GPG key and repository
+    curl -fsSL https://ollama.com/install.sh | bash
+
+    # Move Ollama to a specific path inside the image if needed
+    mkdir -p /app/ollama
+
+    # Copy ollama_data folder with all models (pre-downloaded outside) to container
+    # This will be handled by %files section
+
+    # Clone stable-diffusion-webui or other SD repo (optional)
+    #git clone https://github.com/AUTOMATIC1111/stable-diffusion-webui.git /app/stable-diffusion-webui
+
+    # Setup stable-diffusion environment
+    #cd /app/stable-diffusion-webui
+    #pip install --no-cache-dir -r requirements.txt
+    pip install requests markdown
+    pip install git+https://github.com/stela2502/flask_ollama_web.git
+
+%files
+    /home/med-sal/.ollama/models /app/ollama/models
+    #./stable-diffusion-webui /app/stable-diffusion-webui
+    app.sh /app/run.sh
+    run.py /app/run.py
+
+%runscript
+    sh /app/run.sh
