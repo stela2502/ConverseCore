@@ -48,16 +48,13 @@ deploy:
 	@if [ ! -f $(MODULE_FILE) ]; then \
 		$(CURDIR)/generate_module.sh $(SERVER_DIR) $(VERSION) $(SANDBOX_DIR) > $(MODULE_FILE);\
 	fi;
-	if [ ! -f $(DEPLOY_DIR)/models ]; then \
-	    mkdir -p $(DEPLOY_DIR)/models; \
-	    rsync -avh --no-perms --no-owner --no-group --progress ~/.ollama/ $(DEPLOY_DIR)/models ; \
-	fi;
+	@$(MAKE) update_models
 
 update_models:
 	if [! -f $(DEPLOY_DIR)/models ]; then \
 		mkdir -p $(DEPLOY_DIR)/models; \
 	fi
-	rsync -avh --no-perms --no-owner --no-group --progress ~/.ollama/ $(DEPLOY_DIR)/models
+	rsync -avh --no-perms --no-owner --no-group --progress --exclude 'database/' ~/.ollama/ $(DEPLOY_DIR)/models
 
 # Clean up the sandbox and image
 clean:
