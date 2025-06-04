@@ -13,5 +13,8 @@ fi
 
 # Open a shell in the sandbox
 echo "Entering sandbox ${SANDBOX_DIR}..."
-sudo apptainer shell --contain -B ~/.ollama:/app/ollama --writable "${SANDBOX_PATH}/${SANDBOX_DIR}"
+#sudo apptainer shell   -B ~/.ollama:/app/ollama --writable "${SANDBOX_PATH}/${SANDBOX_DIR}"
+#sudo apptainer shell -B /mnt/data1 -B /mnt/data2 --writable "${SANDBOX_PATH}/${SANDBOX_DIR}"
+
+sudo apptainer shell -B /mnt/data1 -B /mnt/data2 -B ~/.ollama:/app/ollama --writable "${SANDBOX_PATH}/${SANDBOX_DIR}"
 

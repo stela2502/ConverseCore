@@ -6,3 +6,4 @@ ConverseCore/
 *.sif
 *.ipynb
 build*
+/database/

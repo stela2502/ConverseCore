@@ -9,5 +9,5 @@ trap "echo 'Stopping Ollama...'; kill $OLLAMA_PID; wait $OLLAMA_PID" EXIT
 #./venv/bin/python launch.py --listen --skip-torch-cuda-test &
 
 # Start Flask webserver
-python -m flask_ollama_web.run 
+python /app/run.py
 
