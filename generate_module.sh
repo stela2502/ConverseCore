@@ -17,6 +17,9 @@ MODULE_FILE="modules/${IMAGE_NAME}/${VERSION}.lua"
 # Ensure the directory exists
 mkdir -p "$(dirname "$MODULE_FILE")"
 
+# adjust the VERSION in the starter and the sbatch script.
+sed -i "s/VERSION=.*/VERSION=${VERSION}/" start_ConverseCore.sbatch
+
 # Create the module file
 cat <<EOF 
 help([[This module is an example Singularity Image prowiding  

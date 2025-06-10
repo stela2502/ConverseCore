@@ -49,9 +49,11 @@ deploy:
 		$(CURDIR)/generate_module.sh $(SERVER_DIR) $(VERSION) $(SANDBOX_DIR) > $(MODULE_FILE);\
 	fi;
 	@$(MAKE) update_models
+	rsync -avh --no-perms --no-owner --no-group --progress start_AI_server.sh $(DEPLOY_DIR)
+	rsync -avh --no-perms --no-owner --no-group --progress start_ConverseCore.sbatch $(DEPLOY_DIR)
 
 update_models:
-	if [! -f $(DEPLOY_DIR)/models ]; then \
+	if [ ! -f $(DEPLOY_DIR)/models ]; then \
 		mkdir -p $(DEPLOY_DIR)/models; \
 	fi
 	rsync -avh --no-perms --no-owner --no-group --progress --exclude 'database/' ~/.ollama/ $(DEPLOY_DIR)/models

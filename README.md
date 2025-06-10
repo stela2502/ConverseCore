@@ -4,7 +4,7 @@ This slurm module uses the [flask_ollama_web](https://github.com/stela2502/flask
 
 It builds an apptainer image where the users .ollama folder is mounted, not integrated.
 
-At the moemnt only the LLaMA 3 module is supported, but changing that should be very simple.
+Each module the user has installed locally can/will be transfered to the server.
 This is a prove of concept and a testing environment. Would be cool if it would help you, too!
 
 # How to Build it
@@ -46,7 +46,4 @@ ml ConverseCore/1.0
 
 This should be run on a GPU enabled blade.
 
-# Todo
-
-The web interface needs to handle users. At the moment it is a single user system with no security whatsoever.
 
