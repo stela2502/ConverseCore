@@ -47,3 +47,16 @@ ml ConverseCore/1.0
 This should be run on a GPU enabled blade.
 
 
+## Or even more elaborated (only woking on COSMOS-SENS):
+
+```
+/scale/gr01/shared/common/software/ConverseCore/1.0/start_AI_server.sh
+```
+
+This will handle submission and check if there is another server running at the moment,
+reporting you how to connect to the server in the end.
+
+If you change ``start_ConverseCore.sbatch`` to fit your server structure you can also use this script on any other slurm managed server system (hopefully).
+
+
+
